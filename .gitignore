@@ -1,1 +1,6 @@
 .github/**
+.ipynb_checkpoints
+washington.csv
+chicago.csv
+new_york_city.csv
+bikeshare2.ipynb
