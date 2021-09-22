@@ -62,7 +62,7 @@ def get_apply_filters():
         (str) day - name of the day of week to filter by, or
                       "All" to apply no day filter
     """
-    print('='*50)
+    print('='*60, '='*60, sep='\n')
     print("Hello! Let's explore some US BIKESHARE DATA!\n"
           "\nWould you like to view data for Chicago,"
           " New York City or Washington?\n")
@@ -109,7 +109,7 @@ def get_apply_filters():
         month = 'All'
         day = 'All'
 
-    print('=' * 100)
+    print('='*100)
     return city, month, day
 
 
@@ -200,7 +200,7 @@ def time_stats(df, month, day):
     time.sleep(2)
 
     print("\nThis took {:.4f} seconds.".format(time.time() - start_time - 2))
-    print('=' * 50)
+    print('='*50)
 
 
 def station_stats(df):
@@ -231,7 +231,7 @@ def station_stats(df):
     time.sleep(3)
 
     print("\nThis took {:.4f} seconds.".format(time.time() - start_time))
-    print('=' * 70)
+    print('='*70)
 
 
 def trip_duration_stats(df):
@@ -267,7 +267,7 @@ def trip_duration_stats(df):
     time.sleep(2)
 
     print("\nThis took {:.4f} seconds.".format(time.time() - start_time))
-    print('=' * 70)
+    print('='*70)
 
 
 def user_stats(df, city):
@@ -335,9 +335,7 @@ def display_raw_data(df):
         # Display data if 'Yes' and apply subsequent conditions
         if generate_0 == 'Yes':
             for rows in generate_raw_data(df):
-                print('='*50)
-                print('\n', rows)
-                print('='*50)
+                print('='*50, rows, '=*50', sep='\n')
                 generate = input('\n\nWould you like to see still more data?'
                                  '\nEnter "yes" or "no"\n').strip().title()
                 if generate == 'Yes':
@@ -368,9 +366,8 @@ def main():
         restart = input('\nWould you like to restart? '
                         'Enter yes or no.\n').strip()
         if restart.lower() != 'yes':
-            print('\nBye for now!!!'.upper())
-            print('**'*30)
-            print('**'*30)
+            print('\nBYE FOR NOW!!!')
+            print('**'*30, '**'*30, sep='\n')
             break
         else:
             print('**'*30)
