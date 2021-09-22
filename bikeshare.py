@@ -69,7 +69,7 @@ def get_apply_filters():
           " New York City or Washington?\n")
     time.sleep(2)
 
-    # Get user input for city (Chicago, New York City, Washington).
+    # Get user input for city (Chicago, New York City, or Washington).
     try:
         city = input("Type to choose a city;"
                      " then hit 'Enter'.\n").strip().title()
@@ -98,15 +98,19 @@ def get_apply_filters():
 
     # Apply filter
     if filter == 'Month':
+        # Refer to the month filter function
         month = month_filter()
         day = 'All'
     elif filter == 'Day':
+        # Refer to the day filter function
         day = day_filter()
         month = 'All'
     elif filter == 'Both':
+        # Refer to both month_filter and day_filter functions
         month = month_filter()
         day = day_filter()
     elif filter == 'None':
+        # No filter
         month = 'All'
         day = 'All'
 
@@ -132,31 +136,33 @@ def load_data(city, month, day):
 
     # Load data file into a dataframe
     df = pd.read_csv(CITY_DATA[city], index_col=0)
+    # Rename the index column as the chosen city
     df.rename_axis(city, inplace=True)
 
-    # Convert the `Start Time` column to datetime
+    # Convert the `Start Time` column to datetime datatype
     df['Start Time'] = pd.to_datetime(df['Start Time'])
 
-    # Extract month and day of week from Start Time to create new columns
+    # Extract month and day of week from `Start Time` as new columns
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
     # Series.dt.day_name() from Pandas version 1.1.0
 
     # Filter by month if applicable
     if month != 'All':
-        # Use the index of the months list to get the corresponding integer
+        # Use the index of `months` to get the corresponding month number
         month = months.index(month) + 1
 
-        # Filter by month to create the new dataframe
+        # Extract dataframe with data for only the chosen month
         df = df[df['month'] == month]
 
-    # Filter by day of week if applicable
+    # Filter by day if applicable
     if day != 'All':
-        # Filter by day of week to create the new dataframe
+        # Extract dataframe with data for only the chosen day
         df = df[df['day_of_week'] == day]
 
     print('\nHere\'s a sample of the requested data:\n')
     time.sleep(2)
+    # Display a sample of the requested data
     print(df.sample(5))
     time.sleep(6)
     print('='*70)
@@ -171,9 +177,11 @@ def time_stats(df, month, day):
     time.sleep(3)
     start_time = time.time()
 
-    # Display the most common month
+    # Display the most common month of travel if applicable
     if month not in months:
         month_commonest = df['month'].mode()[0]
+
+        # Change month no. back to month name (e.g. 0 = January)
         month_commonest = months[month_commonest-1]
         print('The commonest month of travel is: \n{}'.format(
                                                         month_commonest))
@@ -183,7 +191,7 @@ def time_stats(df, month, day):
               f'\nYou already chose {month}')
         time.sleep(2)
 
-    # Display the most common day of week
+    # Display the most common day of travel if applicable
     if day not in df['day_of_week'].unique():
         day_commonest = df['day_of_week'].mode()[0]
         print(f'\nThe commonest day of travel is: \n{day_commonest}')
@@ -193,7 +201,7 @@ def time_stats(df, month, day):
               f'\nYou already chose {day}')
 
     # Display the most common start hour
-    df['hour'] = df['Start Time'].dt.hour
+    df['hour'] = df['Start Time'].dt.hour   # `hour` column created
     hour_commonest = df['hour'].mode()[0]
     print('\nThe most frequently travelled hour is:',
           f'\n0{hour_commonest}:00 hours' if hour_commonest < 10
@@ -211,17 +219,17 @@ def station_stats(df):
     time.sleep(3)
     start_time = time.time()
 
-    # Display the most commonly used start station
+    # Display the most common start station
     commonest_start_station = df['Start Station'].mode()[0]
     print(f'The most common start station is: \n{commonest_start_station}')
     time.sleep(2)
 
-    # Display most commonly used end station
+    # Display the most common end station
     commonest_end_station = df['End Station'].mode()[0]
     print(f'\nThe most common end station is: \n{commonest_end_station}')
     time.sleep(2)
 
-    # Display most frequent combination of start and end station trip
+    # Display the most frequent trip combination of start and end station
     commonest_start_end = df.groupby(
         ['Start Station', 'End Station'])['Start Time'].count().sort_values(
                                                     ascending=False).index[0]
@@ -288,7 +296,7 @@ def user_stats(df, city):
     time.sleep(2)
 
     if city in ['Chicago', 'New York City']:
-        # Display counts of gender
+        # Display gender frequency
         gender_count = df['Gender'].value_counts().to_dict()
         print('\nGender frequency among travellers:\n'
               'Male(s): {:,} \nFemale(s): {:,}'.format(
@@ -296,7 +304,7 @@ def user_stats(df, city):
                                               gender_count['Female']))
         time.sleep(2)
 
-        # Display earliest, most recent, and most common year of birth
+        # Display the earliest, most recent, and most common year of birth
         earliest_birth = int(df['Birth Year'].min())
         most_recent_birth = int(df['Birth Year'].max())
         most_common_birthyear = int(df['Birth Year'].mode()[0])
@@ -305,7 +313,7 @@ def user_stats(df, city):
                     earliest_birth, most_recent_birth, most_common_birthyear))
         time.sleep(2)
 
-        # Display median birth year
+        # Display the median birth year
         median_birth_year = int(df['Birth Year'].median())
         print('\nThe median birth year is:\n'
                 '{}'.format(median_birth_year))
@@ -329,11 +337,11 @@ def display_raw_data(df):
     """Display chunks of the raw data"""
 
     try:
-        # Ask if user wants to display more raw data
+        # Get user input to display more raw data
         generate_0 = input('\nWould you like to see more raw data?'
                            '\nEnter "yes" or "no"\n').strip().title()
 
-        # Display data if 'Yes' and apply subsequent conditions
+        # Display data in successive chunks as needed by user
         if generate_0 == 'Yes':
             for rows in generate_raw_data(df):
                 print('='*50)
