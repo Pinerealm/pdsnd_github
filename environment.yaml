@@ -1,0 +1,8 @@
+name: udacity
+channels:
+  - defaults
+dependencies:
+  - python=3.6
+  - pandas==0.22.0
+  - console_shortcut
+  - notebook
