@@ -1,22 +1,25 @@
 ### Date created
 19/09/2021
 
-### EXPLORATION OF US BIKESHARE DATA
+### TITLE
+EXPLORATION OF US BIKESHARE DATA
 
-### Description
-This is an exploration, using Python, of bikeshare data for three cities in the US: Chicago, San Francisco and Washington, DC.
+### DESCRIPTION
+This is an exploration, using Python, of US bikeshare data gotten from these three cities: Chicago, San Francisco and Washington, DC.
 
-It's an interactive Python script that calculates and displays descriptive statistics for data chosen by a user after inputting specific filter(s).
+An interactive Python script calculates and displays descriptive statistics for data chosen by the user. The user chooses a city and is then given a choice of filtering the data by month, day, or no filter.
 
-### Files used
+### FILES USED
 The following files were used in this project:
 * chicago.csv
 * washington.csv
-*new_york_city.csv
+* new_york_city.csv
 
-### Credits
-This is one of the required projects done as part of Udacity's Programming for Data Science with Python.
+Environment requirements can be found in the `environment.yaml` file.
+
+### CREDITS
+This is one of the projects done as part of Udacity's Programming for Data Science with Python course.
 
 Credits go to:
-* [Ustacky](www.ustacky.com)
 * [The official Python tutorial](https://docs.python.org/3/tutorial/)
+* [Ustacky Python course](www.ustacky.com)
